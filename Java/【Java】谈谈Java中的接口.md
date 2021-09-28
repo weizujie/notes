@@ -1,0 +1,283 @@
+---
+title: 【Java】谈谈Java中的接口
+date: '2020/06/19 17:24:22'
+categories: Java
+tags: Java
+abbrlink: 18733
+---
+
+本文将介绍在 Java 语言中的接口。
+
+<!--more-->
+
+通俗点来说，接口就是**方法的集合**。
+
+## 接口的定义格式
+
+定义接口的格式：
+
+```java
+public interface 接口名称 {
+    // 接口内容
+}
+```
+
+接口内容可以包含：
+
+JDK 1.7 中：
+
+-   常量
+-   抽象方法
+
+JDK 1.8 中：
+
+-   常量
+-   抽象方法
+-   默认方法
+-   静态方法
+
+### 注意事项
+
+-   接口中是没有静态代码块或者构造方法的
+-   一个类的直接父类是唯一的，但是一个类可以实现多个接口
+
+
+## 接口中抽象方法的定义格式
+
+接口的抽象方法定义格式如下：
+
+```java
+public abstract void 方法名称();
+```
+
+如果使用的是 IDEA 进行开发，那么会看到方法 method 的修饰符 ```public abstract``` 是灰色的，这是因为：在接口中，抽象方法的修饰符默认是 ```public abstract```，所以我们可以省略这两个修饰符：
+
+```java
+void 方法名称();
+```
+
+也可以省略一个：
+
+```java
+public void 方法名称1();
+abstract void 方法名称2();
+```
+
+### 抽象方法的使用
+
+接口不能直接使用，必须有一个类来实现这个接口，这个类必须实现（覆盖重写）接口中的所有抽象方法。
+
+定义一个接口 ```MyInterfaceAbstract```：
+
+```java
+public interface MyInterfaceAbstract {
+    public abstract void method();
+}
+```
+
+定义一个实现类 ```MyInterfaceAbstractImpl```：
+
+```java
+public class MyInterfaceAbstractImpl implements MyInterfaceAbstract {
+    @Override
+    public void method() {
+        System.out.println("这是抽象方法");
+    }
+}
+```
+
+创建实现类的对象进行使用：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        MyInterfaceAbstractImpl myInterfaceAbstract = new MyInterfaceAbstractImpl();
+        myInterfaceAbstract.method();
+    }
+}
+```
+
+输出结果为：
+
+>   这是抽象方法
+
+### 注意事项
+
+-   不能直接 new 接口的对象，而是 new 实现类的对象
+
+-   如果实现类里没有实现接口中的所有抽象方法，那么这个实现类自己就必须是抽象类。
+
+## 接口中默认方法的定义格式
+
+从 JDK 8 开始，接口里允许定义默认方法，**可以有方法体**。
+
+接口的默认方法定义格式如下：
+
+```java
+public default 返回值类型 方法名称(参数列表) {
+    方法体...
+}
+```
+
+### 默认方法的使用
+
+假设有一个这样的场景：
+
+-   有一个接口 ```MyInterfaceDefault```，这个接口有一个抽象方法 ```method```，同样的，在 IDEA 里修饰符 ```public``` 是灰色的，可以省略：
+
+    ```java
+    public interface MyInterfaceDefault {
+        public abstract void method();
+    }
+    ```
+
+-   有两个类实现了这个接口，分别是 ```MyInterfaceDefaultA``` 和 ```MyInterfaceDefaultB``` ：
+
+    ```java
+    public class MyInterfaceDefaultA implements MyInterfaceDefault {
+        @Override
+        public void method() {
+            System.out.println("抽象方法,AAAAAA");
+        }
+    }
+    ```
+
+    ```java
+    public class MyInterfaceDefaultA implements MyInterfaceDefault {
+        @Override
+        public void method() {
+            System.out.println("抽象方法,BBBBBB");
+        }
+    }
+    ```
+
+
+这时候我想在接口中添加一个新的方法 ```method2``` ，但是如果添加了这个方法，就得在两个实现类里再实现这个方法，非常麻烦。
+
+如何解决这个问题？定一个默认方法（JDK 1.8 版本及以上）：
+
+```java
+public interface MyInterfaceDefault {
+    public abstract void method();
+	// 添加一个默认方法
+    public default void method2() {
+        // 方法体
+        System.out.println("我是默认方法");
+    }
+}
+```
+
+这样的话就不用在实现类里实现这个方法了，就很棒~
+
+### 注意事项
+
+-   默认方法可以通过接口实现类对象，直接调用
+-   也可以被接口实现类进行覆盖重写
+
+## 接口中静态方法的定义格式
+
+从 JDK 8 开始，接口里允许定义静态方法，**也有方法体**。
+
+定义格式如下：
+
+```java
+public static 返回值类型 方法名称(参数列表) {
+    方法体...
+}
+```
+
+
+
+### 静态方法的使用
+
+首先定一个接口 ```MyInterfaceStatic```，里面有一个静态方法，如果使用的是 IDEA 进行开发，修饰符 ```public``` 也可以省略：
+
+```java
+public interface MyInterfaceStatic {
+    public static void method() {
+        System.out.println("我是静态方法");
+    }
+}
+```
+
+直接在类中使用即可，不用再定一个接口实现类：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // 接口名称.方法名称();
+        MyInterfaceStatic.method();
+    }
+}
+```
+
+输出结果：
+
+>   我是静态方法
+
+### 注意事项
+
+-   不能通过接口实现类的对象来调用接口当中的静态方法
+-   **通过接口名称，直接调用其中的静态方法**
+-   仅限于 JDK 版本在 1.8 及以上
+
+## 接口中常量的定义格式
+
+接口当中也可以定义"成员变量"，但必须通过 ```public static final``` 这三个关键字进行修饰，从效果上看，这其实就是接口的常量。
+
+接口的常量定义格式如下：
+
+```java
+public static final 数据类型 常量名称 = 数据值;
+```
+
+一旦使用 ```final``` 关键字进行修饰，就说明**不可改变**。
+
+这其实就是一个常量，一旦赋值，就不可以更改。
+
+### 常量的使用
+
+定义一个接口 ```MyInterfaceConst```，如果使用 IDEA 进行开发， ```public static final``` 是灰色的，代表可以省略：
+
+ ```java
+public interface MyInterfaceConst {
+    public static final int NUM = 10;
+}
+ ```
+
+跟静态方法一样，直接在类中使用即可：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(MyInterfaceConst.NUM);
+    }
+}
+```
+
+输出结果：
+
+>   10
+
+### 注意事项
+
+- **接口当中的常量，必须进行赋值**
+- 常量名称按照习惯使用大写字母，用下划线进行分隔
+
+## 多个接口的实现
+
+多个接口实现的格式：
+
+```java
+public class MyInterfaceImpl implements MyInterfaceA, MyInterfaceB {
+    // 覆盖重写所有抽象方法（接口 A 的和接口 B 的）
+}
+```
+
+![Snipaste_2020-06-19_19-02-40.png](https://wx2.sbimg.cn/2020/06/19/Snipaste_2020-06-19_19-02-40.png)
+
+### 注意事项
+
+-   如果实现类所实现的多个接口中，存在重复的**抽象方法**，那么只需要覆盖重写一次即可
+-   如果实现类所实现的多个接口中，存在重复的**默认方法**，那么实现类一定要对冲突的默认方法进行覆盖重写
+-   一个类的父类当中的方法和接口当中的默认方法产生冲突的话，优先用父类中的方法（**父类优先，接口其次**）

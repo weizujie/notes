@@ -1,0 +1,148 @@
+---
+title: 【Java】谈谈Java中的覆盖和重载
+date: '2020/06/17 13:27:11'
+categories: Java
+tags: Java
+abbrlink: 11258
+---
+
+重载和覆盖是 Java 多态性的不同表现方式，本文将介绍什么是重载（Overload）和覆盖（Override）以及二者之间的区别。
+
+<!--more-->
+
+# 重载（Overload）
+
+重载是在一个类里，方法名相同，而参数不同。返回的类型可以相同，也可以不同。每个重载的方法都必须有独一无二的参数列表。
+
+**最常用的地方就是构造器的重载**。
+
+举个例子：
+
+```java
+public class A {
+	public int sum(int a) {
+		return a;
+    }
+	public int sum(int a, int b) {
+		return a + b;
+	}
+	public double sum(double a, double b) {
+		return a + b;
+	}
+	public double sum(int a, double b, int c) {
+		return a + b + c;
+	}
+	
+	public static void main(String[] args) {
+		A a = new A();
+        
+		int sum1 = a.sum(3);
+		System.out.println(sum1); 
+		
+		double sum2 = a.sum(1, 2);
+		System.out.println(sum2); 
+		
+		double sum3 = a.sum(1.0, 2.0);
+		System.out.println(sum3);
+		
+		double sum4 = a.sum(1, 2.0, 3);
+		System.out.println(sum4);
+	}
+}
+
+```
+
+上述代码中，有四个方法，方法名都是 sum。
+
+方法名相同，参数列表不同，返回值的类型也不同，这就是**方法的重载**。
+
+## 需要注意的点
+
+在使用重载时，需要注意以下几点：
+
+-   被重载的方法必须改变参数列表（参数个数或类型不一样）；
+-   被重载的方法可以改变返回类型；
+-   被重载的方法可以改变访问修饰符；
+-   被重载的方法可以声明新的或更广的检查异常；
+-   方法能够在同一个类中或者在一个子类中被重载。
+-   无法以返回值类型作为重载函数的区分标准。
+
+# 覆盖（Override）
+
+覆盖（也叫重写）是指子类对父类允许访问的方法进行重新编写，返回值和形参都不可以改变。
+
+也就是说，**外壳不变，核心重写！**
+
+覆盖的好处在于，可以根据自己的需要定义属于自己的方法。
+
+举个例子：
+
+```java
+class Animal{
+   public void move(){
+      System.out.println("动物可以移动");
+   }
+}
+ 
+class Dog extends Animal{
+   public void move(){
+      System.out.println("狗可以跑和走");
+   }
+}
+ 
+public class TestDog{
+   public static void main(String args[]){
+      Animal a = new Animal(); // Animal 对象
+      Animal b = new Dog(); // Dog 对象
+ 
+      a.move();// 执行 Animal 类的方法
+ 
+      b.move();//执行 Dog 类的方法
+   }
+}
+```
+
+编译后运行结果：
+
+``````
+动物可以移动
+狗可以跑和走
+``````
+
+在上面的例子中，我们 new 一个 Animal 对象，将它赋值给 Animal 引用，然后运行 move 方法。
+
+然后 new 一个 Dog 对象，同样将它赋值给 Animal 引用，然后运行 move 方法。
+
+从结果中可以看出，尽管 b 属于 Animal 类型，但是它仍然运行的是 Dog 类里的 move 方法。
+
+原因是：在编译阶段，只是检查参数的引用类型，然而在运行的时候，JVM 指定对象的类型并运行该对象的方法。
+
+因此在上面的例子中，之所以能够编译成功，是因为 Animal 类中存在 move 方法，然而运行的时候，运行的是特定对象的方法。
+
+
+
+## 需要注意的地方
+
+-   参数列表必须**完全**与被重写方法的相同。
+-   返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值的派生类（java5 及更早版本返回类型要一样，java7 及更高版本可以不同）。
+-   **访问权限不能比父类中被重写的方法的访问权限更低**。例如：如果父类的一个方法被声明为 public，那么在子类中重写该方法就不能声明为 protected。
+-   **父类的成员方法只能被它的子类重写**。
+-   **声明为 final 的方法不能被重写。**
+-   声明为 static 的方法不能被重写，但是能够被再次声明。
+-   子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为 private 和 final 的方法。
+-   子类和父类不在同一个包中，那么子类只能够重写父类的声明为 public 和 protected 的非 final 方法。
+-   重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以。
+-   **构造方法不能被重写**。
+-   如果不能继承一个方法，则不能重写这个方法
+
+# 二者之间的区别
+
+-   重载是同一个类中方法之间的关系，是水平关系；覆盖是子类和父类之间的关系，是垂直关系
+-   重载是多个方法之间的关系；覆盖只能由一个方法或一对方法产生关系
+-   重载要求参数列表不同；覆盖要求参数列表相同
+-   重载关系是根据调用时的实参表与形参表来选择方法体；覆盖关系中，调用方法是根据对象的类型来决定
+
+# 参考资料
+
+-   《Java 程序员面试笔试宝典》第四章
+-   [菜鸟教程-Java 重写(Override)与重载(Overload)](https://www.runoob.com/java/java-override-overload.html)

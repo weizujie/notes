@@ -1,0 +1,313 @@
+---
+title: 【Java】谈谈Java中的多态
+date: '2020/06/20 22:28:11'
+categories: Java
+tags: Java
+abbrlink: 16717
+---
+
+本文将介绍 Java 语言中面向对象的多态性。
+
+<!--more-->
+
+多态是同一个行为具有多个不同的表现形态或形式的能力。
+
+比如：
+
+>   小阿 giao，他是一名主播，同样也是一个人。
+>
+>   小阿 giao 是一个对象，
+>
+>   这个对象既有主播形态，也有人类形态。
+
+一个对象，拥有多种形态，这就是**对象的多态性**。
+
+## 多态在代码中的体现
+
+如何用代码来表现多态性？
+
+其实就是一句话：**父类引用指向子类对象**。
+
+```java
+父类名称 对象名 = new 子类名称();
+```
+
+不一定非得是父类引用，还可以这样：
+
+```java
+接口名称 对象名 = new 实现类名称();
+```
+
+创建一个父类 ：
+
+```java
+public class A {
+    public void method() {
+        System.out.println("父类方法");
+    }
+}
+```
+
+创建一个子类继承父类并覆盖重写父类的 ```method``` 方法：
+
+```java
+public class B extends A {
+    @Override
+    public void method() {
+        System.out.println("子类方法");
+    }
+}
+```
+
+使用多态写法：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        A a = new B();
+        a.method();
+    }
+}
+```
+
+ 输出结果：
+
+>   子类方法
+
+输出的是子类的方法，如果父类有的方法子类没有覆盖重写，那么就会向上查找，即子类没有，就找父类。
+
+我们在父类里添加一个新的方法：
+
+```java
+public class A {
+    public void method2() {
+        System.out.println("父类特有的方法");
+    }
+}
+```
+
+子类不去覆盖重写：
+
+```java
+public class B extends A {
+    // 什么都不写
+}
+```
+
+调用一下这个方法：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        A a = new B();
+        a.method2();
+    }
+}
+```
+
+输出结果：
+
+>   父类特有的方法
+
+小结一下：
+
+-   直接通过对象名称访问成员变量，等号左边你 new 了谁，优先用谁的方法，如果没有，则向上找
+
+## 多态中成员方法的使用特点
+
+有一句口诀：**编译看左边，运行看右边**。（这里的左边指的是等号的左边，右边指的是等号的右边）
+
+什么意思呢？先上代码：
+
+新建一个父类，写两个方法 ```eat``` 和 ```giao```，注意，```giao``` 方法是父类特有的，子类不覆盖重写：
+
+```java
+public class Animal {
+    public void eat() {
+        System.out.println("动物吃东西");
+    }
+
+    public void giao() {
+        System.out.println("动物在giao");
+    }
+}
+```
+
+新建一个子类继承父类并覆盖重写父类的 ```eat``` 方法，然后写一个特定的方法 ```run```：
+
+```java
+public class Cat extends Animal {
+    @Override
+    public void eat() {
+        System.out.println("猫在吃鱼");
+    }
+
+    public void run() {
+        System.out.println("猫在跑");
+    }
+}
+```
+
+调用一下各个方法：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Cat();
+        a.eat();  // 输出：猫在吃鱼
+        a.giao(); // 输出：动物在giao
+        a.run();  // 编译错误
+    }
+}
+```
+
+一行一行来解释：
+
+-   第 3 行，多态写法，父类引用指向子类对象
+-   第 4 行：调用 ```eat``` 方法，因为 ```eat``` 方法父子类都有，所以优先使用子类的，输出：猫在吃鱼。没毛病
+-   第 5 行：调用 ```giao``` 方法，这是父类特有的方法，子类没有，所以向上找，输出：动物在giao。也没毛病
+-   第 6 行，调用 ```run``` 方法，这是子类的特有方法，口诀：**编译看左边**。左边是父类，父类中没有 ```run``` 方法，所以编译报错（具体原因是：对象一旦**向上转型**为父类，那么就无法调用子类原本特有的内容，比如 ```run``` 方法）
+
+如果要想使用 ```run``` 方法，就得在父类中创建。
+
+## 成员变量与成员方法的对比
+
+-   成员变量：编译看左边，运行还看左边
+-   成员方法：编译看左边，运行看右边
+
+## 多态的好处
+
+假设我们有三个类，都有 ```work``` 方法：
+
+-   员工类（父类）
+
+    ```java
+    work();  // 抽象的
+    ```
+
+-   讲师类（子类）
+
+    ```java
+    work();  // 讲课
+    ```
+
+-   助教类（子类）
+
+    ```java
+    work();  // 辅导
+    ```
+
+如果不用多态写法，只用子类：
+
+```java
+Teacher t = new Teacher();
+t.work();  // 老师讲课
+Assistant a = new Assistant();
+a.work();  // 助教辅导
+```
+
+我们唯一要做的事情就是调用 ```work``` 方法，不关心你是讲课还是辅导。
+
+如果使用多态写法：对比一下上面的代码：
+
+```java
+Employee t = new Teacher();
+t.work();
+Employee a = new Assistant();
+t.work();
+```
+
+好处就一目了然了：无论右边 new 的时候换成哪个子类对象，等号左边调用的方法都不会改变。
+
+当然还有其他的好处，以后会慢慢学习到。
+
+## 对象的向上转型
+
+对象的向上转型其实上面以及写过了，其实就是多态写法。
+
+格式：
+
+```JAVA
+父类名称 对象名 = new 子类名称();
+Animal animal = new Cat();
+```
+
+含义：
+
+>   右侧创建一个子类对象，把它当作父类来看。
+>
+>   创建了一只猫，当作动物来看待。
+
+注意：**向上转型一定是安全的**。但是也有个弊端，一旦对象向上转型为父类，那么就无法调用子类原本特有的内容（解决方案：向下转型）。
+
+## 对象的向下转型
+
+对象的向下转型，其实就是一个**还原**的动作。
+
+格式：
+
+```java
+子类名称 对象名 = (子类名称) 父类对象;
+```
+
+含义：
+
+>   将父类对象**还原**为本来的对象。
+
+简单来说，本来它是猫，经过向上转型为动物，再向下转型还原成猫。
+
+```java
+Animal animal = new Cat(); // 本来是猫，向上转型为动物
+Cat cat = (Cat) animal; // 本来是猫，已经被当作是动物了，还原为猫
+```
+
+类似于这样：
+
+```java
+int num = (int) 10.0; // true
+int num = (int) 10.5; // false -> 精度损失
+```
+
+
+
+注意事项：
+
+>   1、必须保证对象本来创建的时候就是猫，才能向下转型为猫
+>
+>   2、如果对象创建的时候不是猫，现在非要向下转型为猫，你说你是不是沙雕？报错：**ClassCastException**
+
+## 使用 instanceof 关键字进行类型判断
+
+有一个问题：如何知道一个父类引用的对象，本来是什么子类？
+
+简单来说，就是你怎么知道父类的引用指向的本来是猫还是狗呢？
+
+答案是：使用关键字 ```instanceof```。
+
+格式：
+
+```java
+对象名称 instanceof 子类名称
+```
+
+返回的是一个 ```boolean``` 类型：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Animal animal = new Cat();  // 本来是猫
+        animal.eat();  // 猫吃鱼
+
+        // 如果希望使用子类特有的方法，需要向下转型
+        if (animal instanceof Cat) { // true
+            Cat cat = (Cat) animal;
+            cat.run(); // 猫在跑
+        }
+    }
+}
+```
+
+注意：使用向下转型，一定要使用 ```instanceof``` 关键字进行判断，避免 ```ClassCastException``` 异常。
+
+
+
