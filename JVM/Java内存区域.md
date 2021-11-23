@@ -1,21 +1,13 @@
----
-title: 【JVM】Java内存区域详解
-date: '2020/11/25 22:28:11'
-categories: JVM
-tags: JVM
-abbrlink: 4687
----
+# Java内存区域
 
 本文将介绍了 Java 虚拟机内存的各个区域以及这些区域的作用、服务对象和其中可能出现的异常等。
-
-<!-- more -->
 
 ## JVM 运行时数据区域
 
 Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存划分为五个不同的数据区域（如图所示）。
 
 
-![](https://gitee.com/weizujie/Img/raw/master/img/JVM运行时数据区域.png)
+![](D:\学习笔记\JVM\Java内存区域.assets\JVM运行时数据区域.png)
 
 - 红色边框的是由所有**线程共享**的数据区
 - 蓝色边框的是**线程隔离**的数据区
@@ -144,11 +136,11 @@ Java 虚拟机在执行 Java 程序的过程中会把它所管理的内存划分
 
 - 通过句柄访问（reference 中存储的是稳定的句柄地址，在对象被移动的时候只会改变句柄中的实例数据指针，而 reference 本身不需要被修改）
 
-![](D:\学习笔记\JVM\【JVM】Java内存区域详解.assets\通过句柄访问对象.png)
+![](D:\学习笔记\JVM\Java内存区域.assets\通过句柄访问对象.png)
 
 - 通过直接指针访问（速度快得一批，节省了一次指针定位的时间开销）
 
-![](D:\学习笔记\JVM\【JVM】Java内存区域详解.assets\通过直接指针访问对象.png)
+![](D:\学习笔记\JVM\Java内存区域.assets\通过直接指针访问对象.png)
 
 ## 本文小结
 
