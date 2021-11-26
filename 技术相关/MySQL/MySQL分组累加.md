@@ -21,4 +21,3 @@ FROM
  ) AS a,
  ( SELECT @i := 0 ) AS b
 ```
-
