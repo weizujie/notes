@@ -55,4 +55,4 @@ public String getById(@PathVariable("id") Long id) {
 
 5. 输出结果：
 
-    <img src="D:\学习笔记\技术相关\SpringCloudAlibaba\Untitled.assets\image-20220309115007468.png" alt="image-20220309115007468" style="zoom:67%;" />
+    <img src="D:\学习笔记\技术相关\SpringCloudAlibaba\03-Feign远程调用.assets\image-20220309115007468.png" alt="image-20220309115007468" style="zoom:67%;" />
