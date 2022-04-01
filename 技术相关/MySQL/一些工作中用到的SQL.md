@@ -1,6 +1,7 @@
 先放在这里，以后有时间再整理
 
 ```sql
+# 罐数累加求和
 SELECT
  a.date AS date,
  a.sum AS daily,
