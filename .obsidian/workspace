@@ -1,0 +1,143 @@
+{
+  "main": {
+    "id": "a3d4486e76e2116b",
+    "type": "split",
+    "children": [
+      {
+        "id": "2ad5234b0a0a2f36",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "技术相关/并发/极客时间-Java并发编程实战.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "30ee5af3dfb5af2f",
+    "type": "split",
+    "children": [
+      {
+        "id": "54b9273b269fa2be",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "771f321b6b962f27",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "8ebc59ea633bb3d4",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bdee363a849255cd",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "24050205d6a0c39d",
+    "type": "split",
+    "children": [
+      {
+        "id": "75ffc3116ea1f7eb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e46f1ff3bb046a8d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "技术相关/并发/极客时间-Java并发编程实战.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "263e7b0f71e01cdd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "技术相关/并发/极客时间-Java并发编程实战.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d90596903d70e22f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "6611ac4dbd837647",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "技术相关/并发/极客时间-Java并发编程实战.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "2ad5234b0a0a2f36",
+  "lastOpenFiles": [
+    "技术相关/并发/双重检查创建单例对象的异常执行路径.png",
+    "技术相关/并发/极客时间-Java并发编程实战.md",
+    "Pasted image 20220802110844.png.md",
+    "技术相关/并发/Pasted image 20220802110844.png.md",
+    "Pasted image 20220802110844.png",
+    "技术相关/个人服务器运维指南/个人服务器运维指南.md",
+    "技术相关/JUC/JUC学习笔记-并发编程.md",
+    "技术相关/Docker/Docker学习笔记.md",
+    "README.md"
+  ]
+}
