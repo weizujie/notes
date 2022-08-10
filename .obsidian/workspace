@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "2ad5234b0a0a2f36",
+        "id": "de49f18b4350e082",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "技术相关/并发/极客时间-Java并发编程实战.md",
+            "file": "技术相关/JUC/并发编程_01.md.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "技术相关/并发/极客时间-Java并发编程实战.md",
+                "file": "技术相关/JUC/并发编程_01.md.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "技术相关/并发/极客时间-Java并发编程实战.md",
+                "file": "技术相关/JUC/并发编程_01.md.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "技术相关/并发/极客时间-Java并发编程实战.md"
+                "file": "技术相关/JUC/并发编程_01.md.md"
               }
             }
           }
@@ -128,16 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "2ad5234b0a0a2f36",
+  "active": "de49f18b4350e082",
   "lastOpenFiles": [
+    "2022-08-10.md",
+    "技术相关/JUC/并发编程_01.md.md",
+    "技术相关/JVM/JVM学习笔记-内存结构.md",
+    "技术相关/JVM/JVM学习笔记-垃圾回收.md",
+    "技术相关/JUC/JUC学习笔记-并发编程.md",
+    "技术相关/并发/01-可见性、原子性和有序性.md",
+    "技术相关/并发/02-Java如何解决可见性和有序性.md",
     "技术相关/并发/双重检查创建单例对象的异常执行路径.png",
     "技术相关/并发/极客时间-Java并发编程实战.md",
-    "Pasted image 20220802110844.png.md",
-    "技术相关/并发/Pasted image 20220802110844.png.md",
-    "Pasted image 20220802110844.png",
-    "技术相关/个人服务器运维指南/个人服务器运维指南.md",
-    "技术相关/JUC/JUC学习笔记-并发编程.md",
-    "技术相关/Docker/Docker学习笔记.md",
-    "README.md"
+    "Pasted image 20220802110844.png.md"
   ]
 }
